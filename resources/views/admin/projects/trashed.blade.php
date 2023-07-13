@@ -46,8 +46,8 @@
                             @endif
                         </th>
 
-                        <td><img class="img-thumbnail" src="{{ $project->url_image }}" alt="{{ $project->title }}"
-                                style="width: 200px;"></td>
+                        <td><img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}"
+                                style="width: 200px; height: 120px;"></td>
 
                         <td class="text-center">{{ $project->description }}</td>
 
@@ -69,7 +69,7 @@
                             <form class="d-inline-block" method="POST"
                                 action="{{ route('admin.project.restore', ['project' => $project]) }}">
                                 @csrf
-                                <button class="btn btn-warning">Restore</button>
+                                <button class="me-2 btn btn-warning">Restore</button>
                             </form>
                             <button type="button" class="btn btn-danger js-delete" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal" data-id="{{ $project->slug }}">

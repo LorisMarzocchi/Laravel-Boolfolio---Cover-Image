@@ -96,16 +96,6 @@
         </div>
 
 
-        {{-- <div class="mb-3">
-            <label for="languages" class="form-label">Languages</label>
-            <input type="text" class="form-control @error('languages') is-invalid @enderror" id="languages" name="languages"
-                value="{{ old('languages') }}">
-
-                @error('languages')
-                    {{ $message }}
-                @enderror
-        </div> --}}
-
         <div class="mb-3">
             <label for="link_github" class="form-label">link_github</label>
             <input type="text" class="form-control @error('link_github') is-invalid @enderror" id="link_github" name="link_github"
@@ -115,28 +105,7 @@
                     {{ $message }}
                 @enderror
         </div>
-{{--
-        <div class="mb-3">
-            <label for="start">Sale date:</label>
 
-            <input type="date" id="start" name="sale_date" value="{{ old('sale_date') }}" min="2023-01-01"
-                max="2025-12-31">
-
-                @error('sale_date')
-                    {{ $message }}
-                @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
-            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                value="{{ old('type') }}">
-
-                @error('type')
-                    {{ $message }}
-                @enderror
-
-        </div> --}}
 
 
 
