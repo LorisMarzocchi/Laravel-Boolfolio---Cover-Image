@@ -24,11 +24,14 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="image-link" name="image">
+            <input type="file" class="form-control" id="image-link" name="image" accept="image/*">
             <label class="input-group-text" for="image-link">Upload</label>
-            {{-- <div class="invalid-feedback">
-                @error('image') {{ $message }} @enderror
-            </div> --}}
+
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
         </div>
 
         <div class="mb-3">
@@ -40,9 +43,12 @@
                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
             </select>
-            <div class="invalid-feedback">
-                @error('type_id') {{ $message }} @enderror
-            </div>
+                @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+
         </div>
 
         <div class="mb-3">
@@ -71,7 +77,7 @@
         @enderror
 
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="url_image" class="form-label">Url Image</label>
             <input type="text" class="form-control @error('url_image') is-invalid @enderror" id="url_image" name="url_image"
                 value="{{ old('url_image') }}">
@@ -79,7 +85,7 @@
                 @error('url_image')
                     {{ $message }}
                 @enderror
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>

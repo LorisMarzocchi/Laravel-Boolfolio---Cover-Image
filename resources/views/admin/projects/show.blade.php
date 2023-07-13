@@ -3,7 +3,12 @@
 @section('contents')
 <a class="btn btn-primary m-4" href="{{ route('admin.projects.index') }}">Project Index</a>
     <div class="card border-0 text-center m-auto" style="width: 400px">
-        <img src="{{ $project->url_image }}" style="width: 400px; height: 400px" alt="">
+        {{-- <img src="{{ $project->url_image }}" style="width: 400px; height: 400px" alt=""> --}}
+
+        @if ($project->image)
+            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+        @endif
+
         <div class="card-body">
             <h3>{{ $project->title }}</h3>
             <p>{{ Str::limit($project->description, 150, '...') }}</p>

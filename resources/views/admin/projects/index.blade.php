@@ -38,7 +38,7 @@
                         @endif
                     </th>
 
-                    <td><img class="img-thumbnail" src="{{ $project->url_image }}" alt="{{ $project->title }}" style="width: 200px;"></td>
+                    <td><img class="img-thumbnail" src="{{ $project->image }}" alt="{{ $project->title }}" style="width: 200px;"></td>
 
                     <td class="text-center">{{ $project->description }}</td>
 

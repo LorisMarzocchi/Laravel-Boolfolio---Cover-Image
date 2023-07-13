@@ -11,7 +11,7 @@
     </div>
 @endif --}}
     <h1 class="text-center text-danger p-3">Modify Project</h1>
-    <form class="w-75 m-auto" method="POST" action="{{ route('admin.projects.update', ['project' => $project]) }}">
+    <form class="w-75 m-auto" method="POST" action="{{ route('admin.projects.update', ['project' => $project]) }}" enctype="multipart/form-data" novalidate>
         @method('put')
         @csrf
 
@@ -26,12 +26,17 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="image-link">
-            <label class="input-group-text" for="image-link">Upload</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <label class="input-group-text  @error('image') is-invalid @enderror" for="image">Upload</label>
+            @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="mb-3">
-            <label for="type" class="form-label">type</label>
+            <label for="type" class="form-label">Type</label>
             <select class="form-select @error('type_id') is-invalid @enderror"  id="type" name="type_id">
                 <option selected>Change type</option>
 
@@ -48,7 +53,7 @@
         </div>
 
         <div class="mb-3">
-            <h3>Technologies</h3>
+            <h5>Technologies</h5>
             @foreach($technologies as $technology)
                 <div class="mb-3 form-check">
                     <input
@@ -72,35 +77,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="url_image" class="form-label">Url Image</label>
-            <input type="text" class="form-control @error('url_image') is-invalid @enderror" id="url_image" name="url_image"
-                value="{{ old('url_image', $project->url_image) }}">
-
-                @error('url_image')
-                    {{ $message }}
-                @enderror
-        </div>
-
-
-
-        <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="3"
                 name="description" value="{{ old('description', $project->description) }}">@error('description'){{ $message }}@enderror
             </textarea>
 
         </div>
-
-{{--
-        <div class="mb-3">
-            <label for="languages" class="form-label">Languages</label>
-            <input type="text" class="form-control @error('languages') is-invalid @enderror" id="languages" name="languages"
-                value="{{ old('languages', $project->languages) }}">
-
-                @error('languages')
-                    {{ $message }}
-                @enderror
-        </div> --}}
 
         <div class="mb-3">
             <label for="link_github" class="form-label">link_github</label>
@@ -111,28 +93,7 @@
                     {{ $message }}
                 @enderror
         </div>
-{{--
-        <div class="mb-3">
-            <label for="start">Sale date:</label>
 
-            <input type="date" id="start" name="sale_date" value="{{ old('sale_date') }}" min="2023-01-01"
-                max="2025-12-31">
-
-                @error('sale_date')
-                    {{ $message }}
-                @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
-            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                value="{{ old('type') }}">
-
-                @error('type')
-                    {{ $message }}
-                @enderror
-
-        </div> --}}
 
 
 

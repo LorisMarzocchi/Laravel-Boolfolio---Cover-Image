@@ -13,21 +13,21 @@ class ProjectController extends Controller
 {
 
     private $validation = [
-        'title' => 'required|string|max:50',
-        'type_id' => 'required|integer|exists:types,id',
-        'url_image' => 'required|url|max:250',
-        'description' => 'required|string',
-        'link_github' => 'required|url|max:150',
-        'technologies' => 'nullable|array',
+        'title'          => 'required|string|max:50',
+        'type_id'        => 'required|integer|exists:types,id',
+        'image'          => 'nullable|image|max:2048',
+        'description'    => 'required|string',
+        'link_github'    => 'required|url|max:150',
+        'technologies'   => 'nullable|array',
         'technologies.*' => 'integer|exists:technologies,id',
 
     ];
     private $validation_messages = [
-        'required'    => 'il campo :attribute è obbligatorio', // per personalizzare il messaggio di errore
-        'min'    => 'il campo :attribute deve avere :min carattri',
-        'max'    => 'il campo :attribute deve avere :max carattri',
-        'url'   => 'il campo è obbligatorio',
-        'exists' => 'Valore non accetato',
+        'required'      => 'il campo :attribute è obbligatorio', // per personalizzare il messaggio di errore
+        'min'           => 'il campo :attribute deve avere :min carattri',
+        // 'max'           => 'il campo :attribute deve avere :max carattri',
+        'url'           => 'il campo è obbligatorio',
+        'exists'        => 'Valore non accetato',
     ];
 
     /**
@@ -68,7 +68,7 @@ class ProjectController extends Controller
         //salvare immagine in upload
         //prendere percorso immagine
 
-        $imagePath = Storage::put('upload', $data['image']);
+        $imagePath = Storage::put('uploads', $data['image']);
 
         //salvare immagine
 
@@ -76,9 +76,8 @@ class ProjectController extends Controller
         $newProject->title          = $data['title'];
         $newProject->slug           = $newProject::slugger($data['title']);
         $newProject->type_id        = $data['type_id'];
-        $newProject->url_image      = $data['url_image'];
+        $newProject->image          = $imagePath;
         $newProject->description    = $data['description'];
-        // $newProject->languages      = $data['languages'];
         $newProject->link_github    = $data['link_github'];
         $newProject->save();
 
@@ -107,7 +106,7 @@ class ProjectController extends Controller
      */
     public function edit($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
+        $project            = Project::where('slug', $slug)->firstOrFail();
         $types              = Type::all();
         $technologies       = Technology::all();
 
@@ -130,10 +129,21 @@ class ProjectController extends Controller
 
         $data = $request->all();
 
+        if ($data['image']) {
+            // salvare l'immagine nuova
+            $imagePath = Storage::put('uploads', $data['image']);
+
+            // eliminare l'immagine vecchia
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+
+            // aggiormare il valore nella colonna con l'indirizzo dell'immagine nuova
+            $project->image = $imagePath;
+        }
 
         $project->title         = $data['title'];
         $project->type_id       = $data['type_id'];
-        $project->url_image     = $data['url_image'];
         $project->description   = $data['description'];
         $project->link_github   = $data['link_github'];
         $project->update();
@@ -178,6 +188,10 @@ class ProjectController extends Controller
     public function harddelete($slug)
     {
         $project = Project::withTrashed()->where('slug', $slug)->first();
+
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
 
         $project->technologies()->detach();
         $project->forceDelete();
