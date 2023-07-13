@@ -29,8 +29,11 @@
             </tr>
         </thead>
         <tbody>
-            @if ($trashedProjects->count() > 0)
-            @foreach ($trashedProjects as $project)
+            @if ($trashedProjects->count() === 0)
+                <h2>non ci sono progetti</h2>
+            @else
+
+                @foreach ($trashedProjects as $project)
                     <tr>
                         <th scope="row">{{ $project->title }}</th>
                         {{-- <td>{{ $project->url_image }}</td> --}}
@@ -74,7 +77,7 @@
                             </button>
                         </td>
                     </tr>
-
+                @endforeach
         </tbody>
     </table>
 
@@ -101,10 +104,8 @@
             </div>
         </div>
     </div>
-    @endforeach
-            @else
-            <h2>non ci sono progetti</h2>
-            @endif
+
+    @endif
 
 
     {{ $trashedProjects->links() }}
