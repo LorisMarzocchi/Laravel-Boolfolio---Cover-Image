@@ -30,7 +30,7 @@
         </thead>
         <tbody>
             @if ($trashedProjects->count() === 0)
-                <h2>non ci sono progetti</h2>
+                <h2>Non ci sono progetti cancellati</h2>
             @else
 
                 @foreach ($trashedProjects as $project)
@@ -73,7 +73,7 @@
                             </form>
                             <button type="button" class="btn btn-danger js-delete" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal" data-id="{{ $project->slug }}">
-                                Delete
+                                 Hard Delete
                             </button>
                         </td>
                     </tr>

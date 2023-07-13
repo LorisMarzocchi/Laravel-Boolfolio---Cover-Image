@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -63,6 +64,13 @@ class ProjectController extends Controller
         $request->validate($this->validation, $this->validation_messages);
 
         $data = $request->all();
+
+        //salvare immagine in upload
+        //prendere percorso immagine
+
+        $imagePath = Storage::put('upload', $data['image']);
+
+        //salvare immagine
 
         $newProject = new Project();
         $newProject->title          = $data['title'];

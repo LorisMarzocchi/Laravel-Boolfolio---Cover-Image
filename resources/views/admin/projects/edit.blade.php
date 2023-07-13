@@ -14,6 +14,7 @@
     <form class="w-75 m-auto" method="POST" action="{{ route('admin.projects.update', ['project' => $project]) }}">
         @method('put')
         @csrf
+
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
@@ -22,6 +23,11 @@
                 @error('title')
                     {{ $message }}
                 @enderror
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="image-link">
+            <label class="input-group-text" for="image-link">Upload</label>
         </div>
 
         <div class="mb-3">
@@ -74,6 +80,8 @@
                     {{ $message }}
                 @enderror
         </div>
+
+
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>

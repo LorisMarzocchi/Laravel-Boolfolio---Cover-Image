@@ -11,8 +11,7 @@
     </div>
 @endif --}}
     <h1 class="text-danger text-center mb-5">Create New Project</h1>
-    <form class="w-75 m-auto" method="POST" action="{{ route('admin.projects.store') }}">
-
+    <form class="w-75 m-auto" method="POST" action="{{ route('admin.projects.store') }}" enctype="multipart/form-data" novalidate>
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
@@ -22,6 +21,14 @@
                 @error('title')
                     {{ $message }}
                 @enderror
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="image-link" name="image">
+            <label class="input-group-text" for="image-link">Upload</label>
+            {{-- <div class="invalid-feedback">
+                @error('image') {{ $message }} @enderror
+            </div> --}}
         </div>
 
         <div class="mb-3">
