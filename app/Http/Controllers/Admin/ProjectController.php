@@ -68,7 +68,13 @@ class ProjectController extends Controller
         //salvare immagine in upload
         //prendere percorso immagine
 
-        $imagePath = Storage::put('uploads', $data['image']);
+        if($request->hasFile('image')) {
+            // Se l'immagine è stata caricata, la salvo e otteniamo il percorso
+            $imagePath = Storage::put('uploads', $data['image']);
+        } else {
+            // Altrimenti, un valore di default
+            $imagePath = 'defaultImage/default.jpg';
+        }
 
         //salvare immagine
 
@@ -129,7 +135,7 @@ class ProjectController extends Controller
 
         $data = $request->all();
 
-        if ($data['image']) {
+        if ($request->hasFile('image')) {
             // salvare l'immagine nuova
             $imagePath = Storage::put('uploads', $data['image']);
 

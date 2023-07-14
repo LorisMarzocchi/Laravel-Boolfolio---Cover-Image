@@ -30,7 +30,7 @@
         </thead>
         <tbody>
             @if ($trashedProjects->count() === 0)
-                <h2>Non ci sono progetti cancellati</h2>
+                <h2 class=" text-danger text-center mt-3">Non ci sono progetti cancellati</h2>
             @else
 
                 @foreach ($trashedProjects as $project)
